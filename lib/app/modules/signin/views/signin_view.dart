@@ -17,7 +17,7 @@ class SigninView extends GetView<SigninController> {
           'Sign In',
           style: TextStyle(
             color: Colors.blue,
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.bold
           ),
         ),

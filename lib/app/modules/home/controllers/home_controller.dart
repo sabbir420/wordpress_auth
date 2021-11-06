@@ -3,13 +3,14 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final formKey = GlobalKey<FormState>();
-  final usernameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
 
   @override
   void onInit() {
     super.onInit();
+    firstNameController.text = "Falak";
+    lastNameController.text = "Sabbir";
   }
 
   @override

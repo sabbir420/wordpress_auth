@@ -16,7 +16,7 @@ class SignupView extends GetView<SignupController> {
           'Sign Up',
           style: TextStyle(
             color: Colors.blue,
-            fontSize: 18,
+            fontSize: 22,
             fontWeight: FontWeight.bold
           ),
         ),
@@ -94,7 +94,7 @@ class SignupView extends GetView<SignupController> {
               height: 60,
               child: ElevatedButton(
                 onPressed: (){
-
+                  Get.toNamed('/home');
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
