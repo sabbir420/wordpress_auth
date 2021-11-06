@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,7 @@ class SignupView extends GetView<SignupController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Form(
-              key: controller.formKey,
+              key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -96,7 +97,7 @@ class SignupView extends GetView<SignupController> {
               height: 60,
               child: ElevatedButton(
                 onPressed: (){
-                  if (controller.formKey.currentState!.validate()) {
+                  if (_formKey.currentState!.validate()) {
                     final name = controller.usernameController.text;
                     final email = controller.emailController.text;
                     final password = controller.passwordController.text;

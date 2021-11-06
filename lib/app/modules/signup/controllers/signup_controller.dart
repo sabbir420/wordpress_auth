@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:wordpress_auth/app/modules/signup/providers/signup_provider.dart';
 
 class SignupController extends GetxController {
-  final formKey = GlobalKey<FormState>();
+  //final formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -45,6 +45,25 @@ class SignupController extends GetxController {
             textColor: Colors.white,
             toastLength: Toast.LENGTH_LONG,
           );
+          Get.offAndToNamed('/signin');
+        } else if( value!.code == 406 ){
+          Fluttertoast.showToast(
+            msg: value.message.toString(),
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.black,
+            fontSize: 14.0,
+            textColor: Colors.white,
+            toastLength: Toast.LENGTH_LONG,
+          );
+        } else {
+          Fluttertoast.showToast(
+            msg: "Something is wrong",
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.black,
+            fontSize: 14.0,
+            textColor: Colors.white,
+            toastLength: Toast.LENGTH_LONG,
+          );
         }
       });
     } catch (e){
@@ -52,7 +71,6 @@ class SignupController extends GetxController {
     } finally{
       isLoading.value = false;
       update();
-      Get.toNamed('/signin');
     }
   }
 }

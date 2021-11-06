@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../controllers/signin_controller.dart';
 
 class SigninView extends GetView<SigninController> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,7 @@ class SigninView extends GetView<SigninController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Form(
-              key: controller.formKey,
+              key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
