@@ -25,7 +25,8 @@ class SignupView extends GetView<SignupController> {
         ),
         centerTitle: true,
       ),
-      body: Container(
+      body: Obx(() => controller.isLoading.value == false
+      ? Container(
         padding: EdgeInsets.only(left: 16, right: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -73,6 +74,7 @@ class SignupView extends GetView<SignupController> {
                   Padding(padding: EdgeInsets.only(bottom: 25.0)),
                   TextFormField(
                     controller: controller.passwordController,
+                    obscureText: controller.hidePassword.value,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -94,7 +96,15 @@ class SignupView extends GetView<SignupController> {
               height: 60,
               child: ElevatedButton(
                 onPressed: (){
-                  Get.toNamed('/home');
+                  if (controller.formKey.currentState!.validate()) {
+                    final name = controller.usernameController.text;
+                    final email = controller.emailController.text;
+                    final password = controller.passwordController.text;
+                    controller.signUp(
+                        name,
+                        email,
+                        password);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
@@ -108,6 +118,9 @@ class SignupView extends GetView<SignupController> {
           ],
         ),
       )
+      : Center(
+        child: CircularProgressIndicator(),
+      ))
     );
   }
 }
