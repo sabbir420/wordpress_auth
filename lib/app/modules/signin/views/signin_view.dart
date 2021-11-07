@@ -24,7 +24,8 @@ class SigninView extends GetView<SigninController> {
         ),
         centerTitle: true,
       ),
-      body: Container(
+      body: Obx(() => controller.isLoading.value == false
+      ? Container(
         padding: EdgeInsets.only(left: 16, right: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,9 +54,30 @@ class SigninView extends GetView<SigninController> {
                   TextFormField(
                     controller: controller.passwordController,
                     keyboardType: TextInputType.text,
+                    obscureText: controller.hidePassword.value,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),
+                       suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: IconButton(
+                          icon: Icon(
+                            controller.hidePassword.value
+                                  ? Icons
+                                      .visibility_off
+                                  : Icons
+                                      .visibility,
+                              color: Color
+                                  .fromRGBO(
+                                      54,
+                                      50,
+                                      50,
+                                      0.5),
+                            ),
+                            onPressed: () {
+                              controller.passwordHide();
+                            }),
+                      ),
                     ),
                     validator: (value) {
                       if (value == null) {
@@ -74,7 +96,11 @@ class SigninView extends GetView<SigninController> {
               height: 60,
               child: ElevatedButton(
                 onPressed: (){
-
+                  if (_formKey.currentState!.validate()) {
+                    final name = controller.usernameController.text;
+                    final password = controller.passwordController.text;
+                    controller.signIn(name, password);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
@@ -113,7 +139,10 @@ class SigninView extends GetView<SigninController> {
             )
           ],
         ),
-      )
+      ) 
+      : Center(
+        child: CircularProgressIndicator(),
+      ))
     );
   }
 }

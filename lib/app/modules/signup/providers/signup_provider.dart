@@ -22,7 +22,7 @@ class SignupProvider extends GetConnect {
     var jsonData = json.decode(response.body);
     if (response.statusCode == 200) {
       return SignupModel.fromJson(jsonData);
-    } else if (response.statusCode == 406){
+    } else if (response.statusCode == 400){
       return SignupErrorModel.fromJson(jsonData);
     } else {
       return null;

@@ -80,6 +80,26 @@ class SignupView extends GetView<SignupController> {
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: IconButton(
+                          icon: Icon(
+                            controller.hidePassword.value
+                                  ? Icons
+                                      .visibility_off
+                                  : Icons
+                                      .visibility,
+                              color: Color
+                                  .fromRGBO(
+                                      54,
+                                      50,
+                                      50,
+                                      0.5),
+                            ),
+                            onPressed: () {
+                              controller.passwordHide();
+                            }),
+                      )
                     ),
                     validator: (value) {
                       if (value == null) {

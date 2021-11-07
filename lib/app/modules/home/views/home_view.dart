@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +23,8 @@ class HomeView extends GetView<HomeController> {
         ),
         centerTitle: true,
       ),
-      body: Container(
+      body: Obx(() => controller.isLoading.value == false
+      ? Container(
         padding: EdgeInsets.only(left: 16, right: 16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -37,7 +39,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             Form(
-              key: controller.formKey,
+              key: _formKey,
               child: Column(
                 children: [
                   TextFormField(
@@ -66,7 +68,12 @@ class HomeView extends GetView<HomeController> {
               height: 60,
               child: ElevatedButton(
                 onPressed: (){
-
+                  if (_formKey.currentState!.validate()) {
+                    final firstName = controller.firstNameController.text;
+                    final lastName = controller.lastNameController.text;
+                    var token = controller.localStorage.read('token');
+                    controller.updateUser(token, controller.userID.value, firstName, lastName);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
@@ -80,6 +87,9 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       )
+      : Center(
+        child: CircularProgressIndicator(),
+      ))
     );
   }
 }
