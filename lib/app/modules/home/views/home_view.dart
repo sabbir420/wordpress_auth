@@ -31,7 +31,7 @@ class HomeView extends GetView<HomeController> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "Hello, User",
+              "Hello, ${controller.username.value}",
               style: TextStyle(
                 color: Colors.blue,
                 fontSize: 16,
